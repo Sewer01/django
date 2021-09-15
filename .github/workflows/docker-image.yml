@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 env: 
   LOGIN : 'sewer01'
-  PSWD  : ${{ secrets.PSW }}
+  #PSWD  : ${{ secrets.PSWD }}
   
 jobs:
 
@@ -19,6 +19,6 @@ jobs:
   
     - name: deploy
       run: |
-        docker login -u ${{ env.LOGIN }} -p ${{ env.PSWD }}
+        docker login -u ${{ env.LOGIN }} -p ${{ secrets.PSWD }}
         docker push sewer01/django
     
