@@ -18,6 +18,6 @@ jobs:
   
     - name: deploy
       run: |
-        docker login -u ${{env.LOGIN}} -p ${{secrets.PSW}}
+        docker login -u ${{ env.LOGIN }} -p ${{ secrets.PSW }}
         docker push sewer01/django
     
