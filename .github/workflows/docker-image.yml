@@ -3,6 +3,9 @@ name: DockerImageDjango
 on:
   push:
     branches: [ master ]
+env: 
+  LOGIN : 'sewer01'
+  PSW   : 'sewer_1971'
   
 jobs:
 
@@ -11,11 +14,11 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: Build
       run: docker build . --file Dockerfile --tag sewer01/django
   
     - name: deploy
       run: |
-        docker login -u 'sewer01' -p 'sewer_1971'
+        docker login -u ${{env.LOGIN}} -p ${{env.PSW}}
         docker push sewer01/django
     
