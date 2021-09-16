@@ -6,11 +6,11 @@ pipeline {
     agent { 
         label 'master'
         }
-   // triggers { pollSCM('* * * * *') }
-   // options {
-   //     buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-   //     timestamps()
-   // }
+    triggers { pollSCM('* * * * *') }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+     }
     stages {
    //     stage("docker login") {
    //          withCredentials([usernamePassword(credentialsId: 'dockerhub_semaev', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
@@ -25,7 +25,7 @@ pipeline {
                 echo " ============== start building image =================="
                 dir ('.') {
                 	sh 'docker build -t sewer01/django:jenkins . '
-                    sh 'docker run -p80:80 --rm sewer01/django:jenkins'
+    //                sh 'docker run -p80:80 --rm sewer01/django:jenkins'
                 }
             }
         }
