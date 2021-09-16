@@ -21,4 +21,6 @@ jobs:
       run: |
         docker login -u ${{ env.LOGIN }} -p ${{ secrets.PSWD }}
         docker push sewer01/django
-    
+    - name: runing
+      run: docker run -p 80:80 sewer01/django
+
