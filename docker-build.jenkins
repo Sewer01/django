@@ -25,6 +25,7 @@ pipeline {
                 echo " ============== start building image =================="
                 dir ('.') {
                 	sh 'docker build -t sewer01/django:jenkins . '
+                    sh 'docker run -p80:80 --rm sewer01/django:jenkins'
                 }
             }
         }
