@@ -13,13 +13,14 @@ pipeline {
      }
     stages {
         stage("docker login") {
-             withCredentials([usernamePassword(credentialsId: 'pswd_dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+             steps {
+                 withCredentials([usernamePassword(credentialsId: 'pswd_dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
                    docker login -u $USERNAME -p $PASSWORD
                     """
                 }
             }
-   
+        }
         stage("create docker image") {
             steps {
                 echo " ============== start building image =================="
