@@ -2,7 +2,7 @@ name: DockerImageDjango
 
 on:
   push:
-    branches: [ master ]
+    branches: [ devops ]
 env: 
   LOGIN : 'sewer01'
   #PSWD  : ${{ secrets.PSWD }}
