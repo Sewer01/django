@@ -29,13 +29,13 @@ pipeline {
                 }
             }
         }
-    //    stage("docker push") {
-    //        steps {
-    //            echo " ============== start pushing image =================="
-    //            sh '''
-    //            docker push sewer01/django:jenkins
-    //            '''
-    //        }
-    //    }
-    }
+        stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                sh '''
+                docker push sewer01/django:jenkins
+                '''
+            }
+        }
+    
 }
