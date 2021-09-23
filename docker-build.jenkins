@@ -14,9 +14,9 @@ pipeline {
         timestamps()
      }
 
-    environment {
-        VERSION = ${env.BUILD_ID}
-    }
+    //environment {
+    //    VERSION = ${env.BUILD_ID}
+    //}
 
     stages {
         stage("docker login") {
