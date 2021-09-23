@@ -12,7 +12,7 @@ pipeline {
         timestamps()
      }
     environment {
-        VERSION = ${env.BUILD_NUMBER}
+        VERSION = $BUILD_NUMBER
     }
     stages {
         stage("docker login") {
