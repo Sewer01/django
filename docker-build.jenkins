@@ -38,5 +38,19 @@ pipeline {
                 '''
             }
         }
+        stage("server push") {
+            steps {
+                echo " ============== start dockerfile for server ================="
+                withCredentials([usernamePassword(credentialsId: 'pswd_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    spawn sshpass -p $PASSWORD ssh $USERNAME@centos docker stop sd
+                    expect 'sd'
+    //                sshpass -p $PASSWORD scp  sewer01/django:jenkins $USERNAME@centos:/root/test
+                    docker run --rm -d -p 8000:80 --name sd sewer01/django:jenkins
+                    exit
+                    """
+                }
+            }
+        }
     } 
 }
