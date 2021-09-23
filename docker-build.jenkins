@@ -11,6 +11,9 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
      }
+    environment {
+        VERSION = ${BUILD_NUMBER}
+    }
     stages {
         stage("docker login") {
              steps {
@@ -25,7 +28,7 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 dir ('.') {
-                	sh 'docker build -t sewer01/django:jenkins . '
+                	sh 'docker build -t sewer01/django: $VERSION . '
     //                sh 'docker run -p80:80 --rm sewer01/django:jenkins'
                 }
             }
@@ -34,7 +37,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push sewer01/django:jenkins
+                docker push sewer01/django:$VERSION
                 '''
             }
         }
@@ -43,7 +46,7 @@ pipeline {
                 echo " ============== start dockerfile for server ================="
                 withCredentials([usernamePassword(credentialsId: 'pswd_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
-                    sshpass -p $PASSWORD ssh $USERNAME@centos  docker run --rm -d -p 8000:80 --name sd sewer01/django:jenkins
+                    sshpass -p $PASSWORD ssh $USERNAME@centos  docker run --rm -d -p 8000:80 --name sd sewer01/django:$VERSION
                     """
                 }
             }
