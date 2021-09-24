@@ -32,7 +32,7 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 dir ('.') {
-                	sh 'docker build -t sewer01/django:${BUILD_ID} . '
+                	sh 'docker build -t sewer01/django:"${BUILD_ID}" . '
     //                sh 'docker run -p80:80 --rm sewer01/django:${BUILD_ID}'
                 }
             }
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push sewer01/django:${BUILD_ID}
+                docker push sewer01/django:"${BUILD_ID}"
                 '''
             }
         }
@@ -50,7 +50,7 @@ pipeline {
                 echo " ============== start dockerfile for server ================="
                 withCredentials([usernamePassword(credentialsId: 'pswd_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
-                    sshpass -p $PASSWORD ssh $USERNAME@centos  docker run --rm -d -p 8000:80 --name sd sewer01/django:${BUILD_ID}
+                    sshpass -p $PASSWORD ssh $USERNAME@centos  docker run --rm -d -p 8000:80 --name sd sewer01/django:"${BUILD_ID}"
                     """
                 }
             }
