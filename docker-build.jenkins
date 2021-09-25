@@ -50,14 +50,7 @@ pipeline {
                 echo " ============== start dockerfile for server ================="
                 withCredentials([usernamePassword(credentialsId: 'pswd_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh '''
-sshpass -p $PASSWORD ssh $USERNAME@centos <<EOF
-$(docker ps -q)
-if [ -n (docker ps -q) ] ; then
-    echo 'результат - отключение sd '
-    docker stop sd
-fi
-docker run --rm -d -p 8000:80 --name sd sewer01/django:${BUILD_ID}
-EOF
+sshpass -p $PASSWORD ssh $USERNAME@centos  docker stop sd ; docker run --rm -d -p 8000:80 --name sd sewer01/django:${BUILD_ID}
                     '''
                 }
             }
