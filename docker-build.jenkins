@@ -51,8 +51,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'pswd_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
 sshpass -p $PASSWORD ssh $USERNAME@centos <<EOF
-if docker ps -q
-then
+if [[ -n $(docker ps -q) ]] ; then
     docker stop sd
 fi
 docker run --rm -d -p 8000:80 --name sd sewer01/django:${BUILD_ID}
