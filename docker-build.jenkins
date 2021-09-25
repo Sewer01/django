@@ -51,7 +51,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'pswd_server', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
 sshpass -p $PASSWORD ssh $USERNAME@centos << EOF
-if [ -n "\$(docker ps -q)" ] ; then
+if [ -z "\$(docker ps -q)" ] ; then
 echo \$(docker ps -q)
 docker stop sd
 fi
