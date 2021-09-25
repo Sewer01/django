@@ -52,7 +52,7 @@ pipeline {
                     sh '''
 sshpass -p $PASSWORD ssh $USERNAME@centos <<EOF
 docker ps -q
-if [ -z "docker ps -q" ] ; then
+if [ -n "docker ps -q" ] ; then
     echo 'результат - отключение sd '
     docker stop sd
 fi
